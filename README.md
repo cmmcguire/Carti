@@ -7,4 +7,4 @@ the "Before you begin" steps on the link below so we should be set upo and ready
 the text recognition later on.
 https://firebase.google.com/docs/ml-kit/android/recognize-text
 
-- Chad
+\- Chad
