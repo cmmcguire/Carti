@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "718646227300",
+    "firebase_url": "https://carti-dde5c.firebaseio.com",
+    "project_id": "carti-dde5c",
+    "storage_bucket": "carti-dde5c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:718646227300:android:affc9ad7dfb15bbdedca71",
+        "android_client_info": {
+          "package_name": "com.project.carti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "718646227300-b8cu1cvi8f1qecibf6chqvuvuvgk42rp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDTyuZYTcHS5Ne3nRcS7BP-QiUkl2QYZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "718646227300-b8cu1cvi8f1qecibf6chqvuvuvgk42rp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
