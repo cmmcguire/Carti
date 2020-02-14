@@ -16,3 +16,9 @@ Added a variety of features so yall can practice and understand how to program o
 Also, this file is to keep everyone updated so any changes you make, report them here using this format with three * which makes a word bolded when file is opened so that things are easier to track.
 
 \-Alexis
+
+***Status 2/14/20:
+
+Minor update: changed the package name in MainActivity back to com.project.carti as we were getting an error there. Also changed the name of this file back to README.md just because that's the filename GitHub automatically identifies and opens at the bottom of the repo page.
+
+\- Chad
