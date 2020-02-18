@@ -27,5 +27,7 @@ Minor update: changed the package name in MainActivity back to com.project.carti
 
 Merged creation of TextRecognition class by Matias.
 NOTE: Firebase for the app is set up under the following gmail account:
-      Email: cartiproject@gmail.com
-      Password: cen4020proj
+Email: cartiproject@gmail.com
+Password: cen4020proj
+
+\- Chad
