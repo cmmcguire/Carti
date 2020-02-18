@@ -22,3 +22,10 @@ Also, this file is to keep everyone updated so any changes you make, report them
 Minor update: changed the package name in MainActivity back to com.project.carti as we were getting an error there. Also changed the name of this file back to README.md just because that's the filename GitHub automatically identifies and opens at the bottom of the repo page.
 
 \- Chad
+
+***Status 2/17/20:
+
+Merged creation of TextRecognition class by Matias.
+NOTE: Firebase for the app is set up under the following gmail account:
+      Email: cartiproject@gmail.com
+      Password: cen4020proj
