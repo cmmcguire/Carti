@@ -4,24 +4,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
-//import android.annotation.NonNull;
 import android.widget.Button;
 import android.widget.ImageView;
-
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
-
 
 import java.util.List;
 
@@ -36,20 +32,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // binds buttons, TextViews, and ImageViews to xml
         mImageView = findViewById(R.id.mImageView);
         cameraBtn = findViewById(R.id.cameraButton);
         detectBtn = findViewById(R.id.detectButton);
         textView = findViewById(R.id.textView);
 
-//        // set title on ActionBar
-//        getActionBar().setTitle("Carti (Text Recognition Test)");
-
+        // listens for Camera button to be clicked
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cameraBtnClicked();
             }
         });
+
+        // listens for Detect button to be clicked
         detectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void detectImg() {
         FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(imageBitmap);
@@ -80,8 +79,10 @@ public class MainActivity extends AppCompatActivity {
                                 });
     }
 
+    // a constant set to 1 used in image capture methods
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
+    // opens camera
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // sets the captured image in the ImageView on screen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
@@ -98,19 +100,25 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    // called when camera button is clicked --> then calls method to open camera
     private void cameraBtnClicked() {
-
         dispatchTakePictureIntent();
 
     }
 
+    // prototype text processing method
+
     private void processTxt(FirebaseVisionText text) {
+        // retrieve blocks of text using Firebase getTextBlocks()
         List<FirebaseVisionText.TextBlock> blocks = text.getTextBlocks();
+
+        // if no text found, set text field
         if (blocks.size() == 0) {
             Toast.makeText(MainActivity.this, "Sorry, No Text Found", Toast.LENGTH_LONG).show();
             return;
         }
+
+        // process text block, set TextView on screen
         for (FirebaseVisionText.TextBlock block : text.getTextBlocks()) {
             String txt = block.getText();
             textView.setTextSize(24);
