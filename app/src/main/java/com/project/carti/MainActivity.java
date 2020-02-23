@@ -26,9 +26,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView mImageView;
     Button cameraBtn, detectBtn;
     Bitmap imageBitmap;
-    TextView textView, shopTotal;
-    double total;
-    String txt;
+    TextView recognizedTextView, shopTotal;
+    double total, salesTax;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         mImageView = findViewById(R.id.mImageView);
         cameraBtn = findViewById(R.id.cameraButton);
         detectBtn = findViewById(R.id.detectButton);
-        textView = findViewById(R.id.textView);
+        recognizedTextView = findViewById(R.id.textView);
         shopTotal = findViewById(R.id.shopTotal);
 
 
@@ -124,14 +123,14 @@ public class MainActivity extends AppCompatActivity {
 
         // process text block, set TextView on screen
         for (FirebaseVisionText.TextBlock block : text.getTextBlocks()) {
-            txt = block.getText();
-            textView.setTextSize(24);
-            textView.setText(txt);
-            convertToInt(txt);
+            String recognizedText = block.getText();
+            recognizedTextView.setTextSize(24);
+            recognizedTextView.setText(recognizedText);
+//            convertToInt(txt);
         }
     }
 
-    //converts string from picture to int and then adds it to total
+    // converts string from picture to int and then adds it to total
     private void convertToInt(String str)
     {
         int number;
