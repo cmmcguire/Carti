@@ -1,7 +1,3 @@
 <resources>
-    <string name="app_name">Button Counter Practice V1.0</string>
-    <string name="Button_one">Press To Count Up!</string>
-    <string name="Button_two">Press To Display Welcome Message</string>
-    <string name="Counter">0</string>
-    <string name="Message">Hello!!</string>
+    <string name="app_name">Carti (Text Recognition Prototype)</string>
 </resources>

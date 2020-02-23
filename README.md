@@ -1,5 +1,7 @@
 # Carti
 
+IMPORTANT NOTE: Report status messages to the README file on the MASTER BRANCH (branches might reflect different changes)
+
 ***Status:
 
 So Firebase has been set up for this app. I added Firebase to the Android project and followed
@@ -31,3 +33,9 @@ Email: cartiproject@gmail.com
 Password: cen4020proj
 
 \- Chad
+
+***Status 2/18/19
+
+Added new branch test-text-recognition. If you check out that branch, I have a basic implementation of the text recognition using Firebase working. I made 2 buttons, one called Camera and the other called Detect. If you hit Camera, it allows you to take a picture. Afterwards, if you hit detect, it scans the image for text and reports the result. Implemented with help from tutorials by Google and Medium. 
+
+\-Chad
