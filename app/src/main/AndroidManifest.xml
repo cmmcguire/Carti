@@ -19,6 +19,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            //added the splash screen before the main activity
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
