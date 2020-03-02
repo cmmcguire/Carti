@@ -29,6 +29,11 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
-    implementation 'com.google.firebase:firebase-analytics:17.2.2'      // line added for Firebase SDK
-    implementation 'com.google.firebase:firebase-ml-vision:24.0.1'      // add dependencies for ML Kit Android library
+    implementation 'com.google.firebase:firebase-analytics:17.2.2'
+    // line added for Firebase SDK
+    implementation 'com.google.firebase:firebase-ml-vision:24.0.1'
+    // add dependencies for ML Kit Android library
+    implementation  'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
+    //added to allow gif in splash screen
+
 }
