@@ -1,6 +1,6 @@
 # Carti (A Smart Grocery Cart Application)
 
-##Contributors:  
+## Contributors:  
 Chad McGuire<br>
 Emily Madril<br> 
 Jose Ochoa<br> 
