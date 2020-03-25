@@ -23,6 +23,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TextProcessing textProcessing = new TextProcessing();
+
     ImageView mImageView;
     Button cameraBtn, detectBtn;
     Bitmap imageBitmap;
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cameraBtnClicked();
+                cameraButtonClicked();
             }
         });
 
@@ -54,13 +56,13 @@ public class MainActivity extends AppCompatActivity {
         detectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                detectImg();
+                detectImage();
             }
         });
     }
 
 
-    private void detectImg() {
+    private void detectImage() {
         FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(imageBitmap);
         FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
 
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(FirebaseVisionText result) {
                                 // Task completed successfully
-                                processTxt(result);
+                                textProcessingControl(result);
                             }
                         })
                         .addOnFailureListener(
@@ -104,44 +106,43 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // called when camera button is clicked --> then calls method to open camera
-    private void cameraBtnClicked() {
+    private void cameraButtonClicked() {
         dispatchTakePictureIntent();
 
     }
 
-    // prototype text processing method
+    // text processing control method --> calls processing in TextProcessing class
+    private void textProcessingControl(FirebaseVisionText text) {
 
-    private void processTxt(FirebaseVisionText text) {
         // retrieve blocks of text using Firebase getTextBlocks()
         List<FirebaseVisionText.TextBlock> blocks = text.getTextBlocks();
 
         // if no text found, set text field
         if (blocks.size() == 0) {
-            Toast.makeText(MainActivity.this, "Sorry, No Text Found", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "Sorry, No Price Found", Toast.LENGTH_LONG).show();
             return;
         }
 
-        // process text block, set TextView on screen
-        for (FirebaseVisionText.TextBlock block : text.getTextBlocks()) {
-            String recognizedText = block.getText();
-            recognizedTextView.setTextSize(24);
-            recognizedTextView.setText(recognizedText);
-//            convertToInt(txt);
+        // call method in TextProcessing class
+        String detectedPriceString = textProcessing.parseForPrice(blocks);
+
+        // set recognizedTextView to detected price
+        recognizedTextView.setTextSize(24);
+        recognizedTextView.setText(detectedPriceString);
+
+        if (detectedPriceString == "") {
+            Toast.makeText(MainActivity.this, "Sorry, No Price Found", Toast.LENGTH_LONG).show();
+            return;
         }
+
+        double detectedPriceDouble = textProcessing.convertToDouble(detectedPriceString);
+
+        // call a function to update total here
     }
 
-    // converts string from picture to int and then adds it to total
-    private void convertToInt(String str)
-    {
-        int number;
-        number = Integer.parseInt(str);
-        System.out.println(number);
-        total = total+number;
-    }
+    private void calculateTotalWithSalesTax() {
 
-    private void calculateSalesTax()
-    {
-        total = total*(1.06);
+        total = total * (1 + salesTax);
     }
 }
 
