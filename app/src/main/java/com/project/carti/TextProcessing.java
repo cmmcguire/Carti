@@ -51,6 +51,8 @@ public class TextProcessing extends AppCompatActivity {
                         Point[] elementCornerPoints = element.getCornerPoints();
                         Rect elementFrame = element.getBoundingBox();
 
+                        System.out.println(elementFrame.height());
+
                         if (elementFrame.height() > largestDetectedHeight) {
 
                             largestDetectedPrice = elementText;

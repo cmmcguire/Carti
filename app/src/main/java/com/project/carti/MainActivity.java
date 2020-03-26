@@ -23,12 +23,16 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    // instance of TextProcessing class to call methods in class
     private TextProcessing textProcessing = new TextProcessing();
 
+    // declaration of UI features
     ImageView mImageView;
     Button cameraBtn, detectBtn;
     Bitmap imageBitmap;
     TextView recognizedTextView, shopTotal;
+
+    // declaration of global variables
     double total, salesTax;
 
     @Override
@@ -61,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+    // process image in with Firebase API methods
     private void detectImage() {
         FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(imageBitmap);
         FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
@@ -140,9 +144,10 @@ public class MainActivity extends AppCompatActivity {
         // call a function to update total here
     }
 
-    private void calculateTotalWithSalesTax() {
+    // add sales tax to total and return result
+    private double calculateTotalWithSalesTax() {
 
-        total = total * (1 + salesTax);
+        return total * (1 + salesTax);
     }
 }
 
