@@ -16,7 +16,7 @@ public class TextProcessing extends AppCompatActivity {
     // uses regex to match string to a valid price
     private boolean isPrice (String str) {
 
-        Pattern pattern = Pattern.compile("[0-9]+.[0-9][0-9]");
+        Pattern pattern = Pattern.compile("[0-9]+[.][0-9][0-9]");
 
         if (str == null) {
             return false;
@@ -44,6 +44,8 @@ public class TextProcessing extends AppCompatActivity {
                     String elementText = element.getText();
 
                     if (isPrice(elementText)) {
+
+                        System.out.println(elementText);
 
                         // check size by finding height of bounding box rectangle
                         Point[] elementCornerPoints = element.getCornerPoints();
