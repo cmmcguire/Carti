@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     // declaration of UI features
     ImageView mImageView;
-    Button cameraBtn, detectBtn;
+    Button cameraBtn;
     Bitmap imageBitmap;
     TextView recognizedTextView, shopTotal;
 
@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         // binds buttons, TextViews, and ImageViews to xml
         mImageView = findViewById(R.id.mImageView);
         cameraBtn = findViewById(R.id.cameraButton);
-        detectBtn = findViewById(R.id.detectButton);
         recognizedTextView = findViewById(R.id.textView);
         shopTotal = findViewById(R.id.shopTotal);
 
@@ -61,14 +60,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // listens for Detect button to be clicked
-        detectBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                detectImage();
-            }
-        });
-        System.out.println("hello world end of program\n");
+        // end of onCreate
     }
 
     // process image in with Firebase API methods
@@ -112,13 +104,16 @@ public class MainActivity extends AppCompatActivity {
             Bundle extras = data.getExtras();
             imageBitmap = (Bitmap) extras.get("data");
             mImageView.setImageBitmap(imageBitmap);
+
+            // directly call detectImage()
+            // eliminates need for detect button
+            detectImage();
         }
     }
 
     // called when camera button is clicked --> then calls method to open camera
     private void cameraButtonClicked() {
         dispatchTakePictureIntent();
-
     }
 
     // text processing control method --> calls processing in TextProcessing class
