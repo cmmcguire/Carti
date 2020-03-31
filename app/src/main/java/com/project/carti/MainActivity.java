@@ -1,6 +1,7 @@
 package com.project.carti;
 
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,13 +14,16 @@ import android.widget.ImageView;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import android.util.Pair;
 
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 
+import java.util.*;
 import java.util.List;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,8 +37,9 @@ public class MainActivity extends AppCompatActivity {
     TextView recognizedTextView, shopTotal;
 
     // declaration of global variables
-    double total, salesTax;
-
+    double salesTax;
+    ArrayList<Pair<String,Double>> items = new ArrayList<Pair<String, Double>>(); //holds itemNameString with price
+                                                                                    //list of tuples
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +60,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // end of onCreate
     }
 
     // process image in with Firebase API methods
     private void detectImage() {
         FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(imageBitmap);
-        FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
+        FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();       //on device
 
         Task<FirebaseVisionText> result =
                 detector.processImage(image)
@@ -134,15 +140,32 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+
         double detectedPriceDouble = textProcessing.convertToDouble(detectedPriceString);
+                   //list of tuples(2 values)
+
+        Double detectedPriceDoubObj = new Double(detectedPriceDouble);
+
+                                                                                                        //detectedPriceDouble is casted as a double Object
+        items.add(new Pair <String,Double> (new String("default"), detectedPriceDoubObj));      //Pair values cant be primitive. must cast to objects
+                                            /*                  ^^^^^^^^                */
+                                            /******change default to initialize with itemNameStr*****/
 
         // call a function to update total here
+
     }
 
+    private double calculate_total(){
+        double total = 0;
+        for(Pair<String,Double> item : items)
+        {
+            total+=item.second;
+        }
+        return total;
+    }
     // add sales tax to total and return result
     private double calculateTotalWithSalesTax() {
-
+        double total = calculate_total();
         return total * (1 + salesTax);
     }
 }
-
