@@ -4,6 +4,8 @@ import com.google.firebase.ml.vision.text.FirebaseVisionText;
 
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 
 import android.graphics.Rect;
 import android.graphics.Point;
