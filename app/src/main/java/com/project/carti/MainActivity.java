@@ -37,9 +37,13 @@ public class MainActivity extends AppCompatActivity {
     TextView recognizedTextView;
 
     // declaration of global variables
-    double salesTax, total, totalwtax;
-    ArrayList<Pair<String,Double>> items = new ArrayList<Pair<String, Double>>(); //holds itemNameString with price
-                                                                                    //list of tuples
+    double salesTax;
+    ArrayList<Pair<String,Double>> items = new ArrayList<Pair<String, Double>>();      //holds itemNameString with price
+                                                                    //list of tuples
+
+    // NOTE: to access total and total with tax, use calculate_total() and calculateTotalWithSalesTax()
+    // not global variables
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -165,9 +169,10 @@ public class MainActivity extends AppCompatActivity {
         }
         return total;
     }
+
     // add sales tax to total and return result
     private double calculateTotalWithSalesTax() {
-        total = calculate_total();
+        double total = calculate_total();
         return total * (1 + salesTax);
     }
 }
