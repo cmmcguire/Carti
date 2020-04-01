@@ -37,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
     TextView recognizedTextView, shopTotal;
 
     // declaration of global variables
-    double salesTax;
+    String strtotal = "Total: ";
+    double salesTax, total;
     ArrayList<Pair<String,Double>> items = new ArrayList<Pair<String, Double>>(); //holds itemNameString with price
                                                                                     //list of tuples
     @Override
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         mImageView = findViewById(R.id.mImageView);
         cameraBtn = findViewById(R.id.cameraButton);
         recognizedTextView = findViewById(R.id.textView);
-        shopTotal = findViewById(R.id.shopTotal);
+        //shopTotal = findViewById(R.id.shopTotal);
 
 
         // listens for Camera button to be clicked
@@ -152,6 +153,8 @@ public class MainActivity extends AppCompatActivity {
                                             /******change default to initialize with itemNameStr*****/
 
         // call a function to update total here
+        total = calculateTotalWithSalesTax();
+
 
     }
 
@@ -165,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
     }
     // add sales tax to total and return result
     private double calculateTotalWithSalesTax() {
-        double total = calculate_total();
+        total = calculate_total();
         return total * (1 + salesTax);
     }
 }

@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class TextProcessing extends AppCompatActivity {
 
+    public String largestDetectedPrice;
+
     // uses regex to match string to a valid price
     private boolean isPrice (String str) {
 
@@ -31,7 +33,7 @@ public class TextProcessing extends AppCompatActivity {
     protected String parseForPrice(List<FirebaseVisionText.TextBlock> blocks) {
 
         // stores the tallest detected element that matches price regex
-        String largestDetectedPrice = "";
+        largestDetectedPrice = "";
 
         // stores the height of tallest detected price element for comparison
         int largestDetectedHeight = 0;
@@ -79,4 +81,6 @@ public class TextProcessing extends AppCompatActivity {
     }
 
 }
+
+
 
