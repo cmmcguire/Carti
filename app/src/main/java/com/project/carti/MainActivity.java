@@ -3,6 +3,7 @@ package com.project.carti;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     double salesTax;
     ArrayList<Pair<String,Double>> items = new ArrayList<Pair<String, Double>>(); //holds itemNameString with price
                                                                                     //list of tuples
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         cameraBtn = findViewById(R.id.cameraButton);
         recognizedTextView = findViewById(R.id.textView);
         shopTotal = findViewById(R.id.shopTotal);
+        TaxBar();
 
 
         // listens for Camera button to be clicked
@@ -61,6 +64,37 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // end of onCreate
+    }
+
+    // declaration for seekbar and tax display
+    private static SeekBar tax_bar;
+    private static TextView tax;
+
+    public void TaxBar(){
+
+        tax_bar = findViewById(R.id.seekBar2);
+        tax = findViewById(R.id.textView3);
+        tax_bar.setOnSeekBarChangeListener(
+                new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                         salesTax = ((float)progress/10.0);
+                         tax.setText("Tax Amount: " + salesTax + "%");
+
+
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+
+                    }
+                }
+        );
     }
 
     // process image in with Firebase API methods
@@ -166,6 +200,6 @@ public class MainActivity extends AppCompatActivity {
     // add sales tax to total and return result
     private double calculateTotalWithSalesTax() {
         double total = calculate_total();
-        return total * (1 + salesTax);
+        return total * (1 + (salesTax/10));
     }
 }

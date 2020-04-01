@@ -72,4 +72,21 @@
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="0.04" />
 
+    <SeekBar
+        android:id="@+id/seekBar2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:max="200"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="127dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/seekBar2"
+        android:text="Tax Amount: "
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="169dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
