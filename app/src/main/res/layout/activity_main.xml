@@ -48,17 +48,18 @@
 
     <TextView
         android:id="@+id/recognizedTextView"
-        android:layout_width="176dp"
-        android:layout_height="95dp"
+        android:layout_width="143dp"
+        android:layout_height="69dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="116dp"
         android:layout_marginEnd="24dp"
-        android:text="Total: "
+        android:text="Total:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.909"
+        app:layout_constraintHorizontal_bias="0.868"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mImageView"
-        app:layout_constraintVertical_bias="0.144" />
+        app:layout_constraintVertical_bias="0.192" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

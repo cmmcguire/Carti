@@ -34,11 +34,10 @@ public class MainActivity extends AppCompatActivity {
     ImageView mImageView;
     Button cameraBtn;
     Bitmap imageBitmap;
-    TextView recognizedTextView, shopTotal;
+    TextView recognizedTextView;
 
     // declaration of global variables
-    String strtotal = "Total: ";
-    double salesTax, total;
+    double salesTax, total, totalwtax;
     ArrayList<Pair<String,Double>> items = new ArrayList<Pair<String, Double>>(); //holds itemNameString with price
                                                                                     //list of tuples
     @Override
@@ -153,7 +152,6 @@ public class MainActivity extends AppCompatActivity {
                                             /******change default to initialize with itemNameStr*****/
 
         // call a function to update total here
-        total = calculateTotalWithSalesTax();
 
 
     }
