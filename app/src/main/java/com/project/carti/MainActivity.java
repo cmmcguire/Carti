@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         mImageView = findViewById(R.id.mImageView);
         cameraBtn = findViewById(R.id.cameraButton);
         recognizedTextView = findViewById(R.id.textView);
+        
         //shopTotal = findViewById(R.id.shopTotal);
 
 
