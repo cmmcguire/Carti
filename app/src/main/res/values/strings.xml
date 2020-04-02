@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Carti (Text Recognition Prototype)</string>
+    <string name="total">Total:</string>
+    <string name="camera">Camera</string>
 </resources>

@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     // declaration of global variables
-    double salesTax;
+    double salesTax = 0;
     ArrayList<Pair<String,Double>> items = new ArrayList<Pair<String, Double>>(); //holds itemNameString with price
                                                                                     //list of tuples
     @Override
@@ -154,10 +154,10 @@ public class MainActivity extends AppCompatActivity {
                                             /*                  ^^^^^^^^                */
                                             /******change default to initialize with itemNameStr*****/
 
-        // call a function to update total here
-        double total = calculateTotalWithSalesTax();
 
-        String stringTotal = convertToString(total);
+
+        // print total with tax to screen
+        String stringTotal = "$" + convertToString(calculateTotalWithSalesTax());
         PriceTotal.setTextSize(24);
         PriceTotal.setText(stringTotal);
 
@@ -169,8 +169,10 @@ public class MainActivity extends AppCompatActivity {
         {
             total+=item.second;
         }
+        System.out.println("Total is " + total);
         return total;
     }
+
     // add sales tax to total and return result
     private double calculateTotalWithSalesTax() {
         double total = calculate_total();
