@@ -14,14 +14,12 @@ import android.widget.ImageView;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import android.util.Pair;
 
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 
-import java.util.*;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -34,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView mImageView;
     Button cameraBtn;
     Bitmap imageBitmap;
-    TextView recognizedTextView, textView;
+    TextView recognizedTextView, StringTotal, PriceTotal;
 
 
     // declaration of global variables
@@ -49,8 +47,10 @@ public class MainActivity extends AppCompatActivity {
         // binds buttons, TextViews, and ImageViews to xml
         mImageView = findViewById(R.id.mImageView);
         cameraBtn = findViewById(R.id.cameraButton);
+        StringTotal = findViewById(R.id.StringTotal);
         recognizedTextView = findViewById(R.id.recognizedTextView);
-        textView = findViewById(R.id.textView);
+        PriceTotal = findViewById(R.id.PriceTotal);
+
 
         //shopTotal = findViewById(R.id.shopTotal);
 
@@ -135,8 +135,8 @@ public class MainActivity extends AppCompatActivity {
         String detectedPriceString = textProcessing.parseForPrice(blocks);
 
         // set recognizedTextView to detected price
-        textView.setTextSize(24);
-        textView.setText(detectedPriceString);
+        recognizedTextView.setTextSize(24);
+        recognizedTextView.setText(detectedPriceString);
 
         if (detectedPriceString == "") {
             Toast.makeText(MainActivity.this, "Sorry, No Price Found", Toast.LENGTH_LONG).show();
@@ -158,8 +158,8 @@ public class MainActivity extends AppCompatActivity {
         double total = calculateTotalWithSalesTax();
 
         String stringTotal = convertToString(total);
-        recognizedTextView.setTextSize(24);
-        recognizedTextView.setText(stringTotal);
+        PriceTotal.setTextSize(24);
+        PriceTotal.setText(stringTotal);
 
     }
 
