@@ -42,7 +42,7 @@ Added new branch test-text-recognition. If you check out that branch, I have a b
 
 ***Status 4/02/20
 
-Added a new Branch called Top_Menu_Bar. Inside this branch their is a zip file which contains the feature. Files could not be merged so I left it all in the zip file. The important files are the new classes and xml files that accompany them. Including, a few changes to app:gradel which compiles the code.
+Added a new Branch called Top_Menu_Bar. Inside this branch their is a zip file which contains the feature. Files could not be merged so I left it all in the zip file. The important files are the new classes and xml files that accompany them. Including, a few changes to app:gradel which compiles the code. TODO(Other pages such as delete, tax and cart items still need to be implemented)
 Classes: 
 About_Page (TODO)
 Add_Item_Page(Contains the form for manual input, contains error checking)
