@@ -34,8 +34,22 @@ Password: cen4020proj
 
 \- Chad
 
-***Status 2/18/19
+***Status 2/18/20
 
 Added new branch test-text-recognition. If you check out that branch, I have a basic implementation of the text recognition using Firebase working. I made 2 buttons, one called Camera and the other called Detect. If you hit Camera, it allows you to take a picture. Afterwards, if you hit detect, it scans the image for text and reports the result. Implemented with help from tutorials by Google and Medium. 
 
 \-Chad
+
+***Status 4/02/20
+
+Added a new Branch called Top_Menu_Bar. Inside this branch their is a zip file which contains the feature. Files could not be merged so I left it all in the zip file. The important files are the new classes and xml files that accompany them. Including, a few changes to app:gradel which compiles the code.
+Classes: 
+About_Page (TODO)
+Add_Item_Page(Contains the form for manual input, contains error checking)
+Delete_Item_Page(TODO)
+Grocery_List_Page(TODO)
+MainActivity(Creates class instances)
+Tax_Page(TODO put slider)
+
+\-Alexis
+  
