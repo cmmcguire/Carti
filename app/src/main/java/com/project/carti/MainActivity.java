@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     Bitmap imageBitmap;
     TextView recognizedTextView, textView;
 
+
     // declaration of global variables
     double salesTax;
     ArrayList<Pair<String,Double>> items = new ArrayList<Pair<String, Double>>(); //holds itemNameString with price
