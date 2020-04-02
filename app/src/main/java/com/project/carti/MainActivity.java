@@ -34,16 +34,12 @@ public class MainActivity extends AppCompatActivity {
     ImageView mImageView;
     Button cameraBtn;
     Bitmap imageBitmap;
-    TextView recognizedTextView;
+    TextView recognizedTextView, textView;
 
     // declaration of global variables
     double salesTax;
-    ArrayList<Pair<String,Double>> items = new ArrayList<Pair<String, Double>>();      //holds itemNameString with price
-                                                                    //list of tuples
-
-    // NOTE: to access total and total with tax, use calculate_total() and calculateTotalWithSalesTax()
-    // not global variables
-
+    ArrayList<Pair<String,Double>> items = new ArrayList<Pair<String, Double>>(); //holds itemNameString with price
+                                                                                    //list of tuples
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +48,9 @@ public class MainActivity extends AppCompatActivity {
         // binds buttons, TextViews, and ImageViews to xml
         mImageView = findViewById(R.id.mImageView);
         cameraBtn = findViewById(R.id.cameraButton);
-        recognizedTextView = findViewById(R.id.textView);
-        
+        recognizedTextView = findViewById(R.id.recognizedTextView);
+        textView = findViewById(R.id.textView);
+
         //shopTotal = findViewById(R.id.shopTotal);
 
 
@@ -137,8 +134,8 @@ public class MainActivity extends AppCompatActivity {
         String detectedPriceString = textProcessing.parseForPrice(blocks);
 
         // set recognizedTextView to detected price
-        recognizedTextView.setTextSize(24);
-        recognizedTextView.setText(detectedPriceString);
+        textView.setTextSize(24);
+        textView.setText(detectedPriceString);
 
         if (detectedPriceString == "") {
             Toast.makeText(MainActivity.this, "Sorry, No Price Found", Toast.LENGTH_LONG).show();
@@ -157,7 +154,11 @@ public class MainActivity extends AppCompatActivity {
                                             /******change default to initialize with itemNameStr*****/
 
         // call a function to update total here
+        double total = calculateTotalWithSalesTax();
 
+        String stringTotal = convertToString(total);
+        recognizedTextView.setTextSize(24);
+        recognizedTextView.setText(stringTotal);
 
     }
 
@@ -169,10 +170,16 @@ public class MainActivity extends AppCompatActivity {
         }
         return total;
     }
-
     // add sales tax to total and return result
     private double calculateTotalWithSalesTax() {
         double total = calculate_total();
         return total * (1 + salesTax);
+    }
+
+    protected String convertToString(double dub)
+    {
+        String str;
+        str = Double.toString(dub);
+        return str;
     }
 }
