@@ -14,5 +14,7 @@ Requirements and Design Document: https://drive.google.com/file/d/1jhieByEYL3NJX
 Implementation and Testing Document: https://drive.google.com/file/d/1qj1Jpjtj1hX3RawAYscowbfW2gQLoRLZ/view?usp=sharing<br>  
 Video: https://www.youtube.com/watch?v=8y9101U2oic<br>
 
+## Iteration 2:
 
+Video: https://youtu.be/es-xLqzN7Wc<br>
 
