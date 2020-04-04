@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Carti</string>
+    <string name="grocery_list">Grocery List</string>
+    <string name="add_item">Add Item</string>
+    <string name="delete_item">Delete Item</string>
+    <string name="about">ⓘ About</string>
+    <string name="tax">ⓘ Tax</string>
+    <string name="item">Item</string>
+    <string name="price">Price</string>
+    <string name="quantity">Quantity</string>
+    <string name="description">Description (Optional)</string>
+    <string name="confirm">Confirm</string>
+    <string name="tax_amount">Tax Amount:</string>
+
+</resources>
