@@ -49,7 +49,10 @@ Add_Item_Page(Contains the form for manual input, contains error checking)
 Delete_Item_Page(TODO)
 Grocery_List_Page(TODO)
 MainActivity(Creates class instances)
-Tax_Page(TODO put slider)
+Tax_Page(TODO put slider) -> UPDATE
+
+Included the slider to the tax page to display a number when slider is moved. Functions should allow you to retrieve value from the users input. Added a progress bar to show how much the tax has changed. 
+
 
 \-Alexis
   
