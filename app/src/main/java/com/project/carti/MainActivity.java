@@ -200,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // calculates total without sales tax
     private double calculate_total(){
         double total = 0;
         for(Pair<String,Double> item : items)
@@ -216,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
         return total * (1 + salesTax);
     }
 
+    // converts a double to a string
     protected String convertToString(double dub)
     {
         String str;
