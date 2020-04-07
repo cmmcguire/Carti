@@ -156,8 +156,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        // print total with tax to screen
-        String stringTotal = "$" + convertToString(calculateTotalWithSalesTax());
+        // print total with tax to screen to 2 decimal places
+        String stringTotal = "$" + String.format("%.2f", calculateTotalWithSalesTax());
         PriceTotal.setTextSize(24);
         PriceTotal.setText(stringTotal);
 
