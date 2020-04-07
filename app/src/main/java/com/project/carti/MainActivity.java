@@ -23,6 +23,12 @@ import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 import java.util.List;
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
+
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+
 public class MainActivity extends AppCompatActivity {
 
     // instance of TextProcessing class to call methods in class
@@ -65,6 +71,37 @@ public class MainActivity extends AppCompatActivity {
 
         // end of onCreate
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater Menu_Object = getMenuInflater();
+        Menu_Object.inflate(R.menu.main_menu_options, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int Selected_Menu_Item=item.getItemId();
+
+        if(Selected_Menu_Item==R.id.menu_grocery_list){
+            startActivity(new Intent(MainActivity.this, Grocery_List_Page.class));
+        } else if (Selected_Menu_Item==R.id.menu_add){
+            startActivity(new Intent(MainActivity.this, Add_Item_Page.class));
+        }else if(Selected_Menu_Item==R.id.menu_delete){
+            startActivity(new Intent(MainActivity.this, Delete_Item_Page.class));
+        }else if(Selected_Menu_Item==R.id.menu_about){
+            startActivity(new Intent(MainActivity.this, About_Page.class));
+        }else if(Selected_Menu_Item==R.id.menu_tax){
+            startActivity(new Intent(MainActivity.this, Tax_Page.class));
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+
 
     // process image in with Firebase API methods
     private void detectImage() {
