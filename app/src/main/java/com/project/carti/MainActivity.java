@@ -240,6 +240,7 @@ public class MainActivity extends AppCompatActivity {
         return str;
     }
 
+
     // manual entry to ArrayList through name, price, and quantity values
     private void manualInputToArrayList(String name, String price, String quantity) {
 
@@ -260,5 +261,27 @@ public class MainActivity extends AppCompatActivity {
         String stringTotal = "$" + String.format("%.2f", calculateTotalWithSalesTax());
         PriceTotal.setTextSize(24);
         PriceTotal.setText(stringTotal);
+    }
+      
+    protected ArrayList<Double> unpackList_Price_Version()
+    {
+        ArrayList<Double> PriceList = new ArrayList<Double>();
+
+        for(Pair<String,Double> name_price : items)
+        {
+            PriceList.add(name_price.second);
+        }
+        return PriceList;
+    }
+
+    protected ArrayList<String> unpackList_Name_Version()
+    {
+        ArrayList<String> NameList = new ArrayList<String>();
+
+        for(Pair<String,Double> name_price : items)
+        {
+            NameList.add(name_price.first);
+        }
+        return NameList;
     }
 }
