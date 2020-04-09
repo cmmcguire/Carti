@@ -185,4 +185,26 @@ public class MainActivity extends AppCompatActivity {
         str = Double.toString(dub);
         return str;
     }
+
+    protected ArrayList<Double> unpackList_Price_Version()
+    {
+        ArrayList<Double> PriceList = new ArrayList<Double>();
+
+        for(Pair<String,Double> name_price : items)
+        {
+            PriceList.add(name_price.second);
+        }
+        return PriceList;
+    }
+
+    protected ArrayList<String> unpackList_Name_Version()
+    {
+        ArrayList<String> NameList = new ArrayList<String>();
+
+        for(Pair<String,Double> name_price : items)
+        {
+            NameList.add(name_price.first);
+        }
+        return NameList;
+    }
 }
