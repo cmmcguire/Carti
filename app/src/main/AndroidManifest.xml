@@ -13,6 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Tax_Page"></activity>
+        <activity android:name=".About_Page" />
+        <activity android:name=".Delete_Item_Page" />
+        <activity android:name=".Add_Item_Page" />
+        <activity android:name=".Grocery_List_Page" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

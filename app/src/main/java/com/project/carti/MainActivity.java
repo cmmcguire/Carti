@@ -23,7 +23,17 @@ import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 import java.util.List;
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
+
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+
 public class MainActivity extends AppCompatActivity {
+
+    // static constants for onActivityResult
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int ADD_ITEM_REQUEST_CODE = 2;
 
     // instance of TextProcessing class to call methods in class
     private TextProcessing textProcessing = new TextProcessing();
@@ -37,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
     // declaration of global variables
     double salesTax = 0;
-    ArrayList<Pair<String,Double>> items = new ArrayList<Pair<String, Double>>(); //holds itemNameString with price
-                                                                                    //list of tuples
+    ArrayList<Pair<String,Double>> items = new ArrayList<Pair<String, Double>>();  // holds itemNameString with price, list of tuples
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
         //shopTotal = findViewById(R.id.shopTotal);
 
-
         // listens for Camera button to be clicked
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +74,38 @@ public class MainActivity extends AppCompatActivity {
 
         // end of onCreate
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater Menu_Object = getMenuInflater();
+        Menu_Object.inflate(R.menu.main_menu_options, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int Selected_Menu_Item=item.getItemId();
+
+        if(Selected_Menu_Item==R.id.menu_grocery_list){
+            startActivity(new Intent(MainActivity.this, Grocery_List_Page.class));
+        } else if (Selected_Menu_Item==R.id.menu_add){
+
+            // allows Add_Item_Page to send data back to MainActivity
+            Intent intent = new Intent(MainActivity.this, Add_Item_Page.class);
+            startActivityForResult(intent, ADD_ITEM_REQUEST_CODE);
+
+        }else if(Selected_Menu_Item==R.id.menu_delete){
+            startActivity(new Intent(MainActivity.this, Delete_Item_Page.class));
+        }else if(Selected_Menu_Item==R.id.menu_about){
+            startActivity(new Intent(MainActivity.this, About_Page.class));
+        }else if(Selected_Menu_Item==R.id.menu_tax){
+            startActivity(new Intent(MainActivity.this, Tax_Page.class));
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     // process image in with Firebase API methods
     private void detectImage() {
@@ -89,9 +130,6 @@ public class MainActivity extends AppCompatActivity {
                                 });
     }
 
-    // a constant set to 1 used in image capture methods
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-
     // opens camera
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -100,9 +138,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // sets the captured image in the ImageView on screen
+    // sets the captured image in the ImageView on screen after REQUEST_IMAGE_CAPTURE
+    // retrieve text from Add_Item_Page
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // check for REQUEST_IMAGE_CAPTURE
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             imageBitmap = (Bitmap) extras.get("data");
@@ -111,6 +153,18 @@ public class MainActivity extends AppCompatActivity {
             // directly call detectImage()
             // eliminates need for detect button
             detectImage();
+        }
+
+        // alternatively, check for ADD_ITEM_REQUEST_CODE
+        if (requestCode == ADD_ITEM_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+
+                String manualName = data.getStringExtra("name");
+                String manualPrice = data.getStringExtra("price");
+                String manualQuantity = data.getStringExtra("quantity");
+
+                manualInputToArrayList(manualName, manualPrice, manualQuantity);
+            }
         }
     }
 
@@ -157,12 +211,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         // print total with tax to screen to 2 decimal places
-        String stringTotal = "$" + String.format("%.2f", calculateTotalWithSalesTax());
-        PriceTotal.setTextSize(24);
-        PriceTotal.setText(stringTotal);
+        updateTotalOnScreen();
 
     }
 
+    // calculates total without sales tax
     private double calculate_total(){
         double total = 0;
         for(Pair<String,Double> item : items)
@@ -179,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
         return total * (1 + salesTax);
     }
 
+    // converts a double to a string
     protected String convertToString(double dub)
     {
         String str;
@@ -186,6 +240,29 @@ public class MainActivity extends AppCompatActivity {
         return str;
     }
 
+
+    // manual entry to ArrayList through name, price, and quantity values
+    private void manualInputToArrayList(String name, String price, String quantity) {
+
+        double priceDouble = textProcessing.convertToDouble(price);
+        int quantityInt = Integer.parseInt(quantity);
+
+        // add item to the ArrayList quantityInt number of times
+        for (int i = 0; i < quantityInt; i++)
+        {
+            items.add(new Pair <String,Double> (name, priceDouble));
+        }
+
+        recognizedTextView.setText("");
+        updateTotalOnScreen();
+    }
+
+    private void updateTotalOnScreen() {
+        String stringTotal = "$" + String.format("%.2f", calculateTotalWithSalesTax());
+        PriceTotal.setTextSize(24);
+        PriceTotal.setText(stringTotal);
+    }
+      
     protected ArrayList<Double> unpackList_Price_Version()
     {
         ArrayList<Double> PriceList = new ArrayList<Double>();
