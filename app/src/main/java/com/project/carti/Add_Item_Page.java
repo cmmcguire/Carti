@@ -8,6 +8,8 @@ import android.view.View;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import android.content.Intent;
+
 public class Add_Item_Page extends AppCompatActivity {
 
     private TextInputLayout Item_Input_Value;
@@ -32,6 +34,9 @@ public class Add_Item_Page extends AppCompatActivity {
         if(!Validate_Item() | !Validate_Price() | !Validate_Quantity()){
             return;
         }
+
+        // input confirmed --> goto function
+        passInput();
     }
 
     private boolean Validate_Item(){
@@ -86,6 +91,15 @@ public class Add_Item_Page extends AppCompatActivity {
         }
     }
 
+    // pass the input to MainActivity
+    private void passInput() {
 
+        Intent intent = new Intent();
 
+        intent.putExtra("name", Item_Input_Value.getEditText().getText().toString());
+        intent.putExtra("price", Price_Input_Value.getEditText().getText().toString());
+        intent.putExtra("quantity", Quantity_Input_Value.getEditText().getText().toString());
+        setResult(RESULT_OK, intent);
+        finish();
+    }
 }

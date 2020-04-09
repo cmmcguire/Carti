@@ -31,6 +31,10 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    // static constants for onActivityResult
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int ADD_ITEM_REQUEST_CODE = 2;
+
     // instance of TextProcessing class to call methods in class
     private TextProcessing textProcessing = new TextProcessing();
 
@@ -43,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
     // declaration of global variables
     double salesTax = 0;
-    ArrayList<Pair<String,Double>> items = new ArrayList<Pair<String, Double>>(); //holds itemNameString with price
-                                                                                    //list of tuples
+    ArrayList<Pair<String,Double>> items = new ArrayList<Pair<String, Double>>();  // holds itemNameString with price, list of tuples
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         //shopTotal = findViewById(R.id.shopTotal);
-
 
         // listens for Camera button to be clicked
         cameraBtn.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +90,11 @@ public class MainActivity extends AppCompatActivity {
         if(Selected_Menu_Item==R.id.menu_grocery_list){
             startActivity(new Intent(MainActivity.this, Grocery_List_Page.class));
         } else if (Selected_Menu_Item==R.id.menu_add){
-            startActivity(new Intent(MainActivity.this, Add_Item_Page.class));
+
+            // allows Add_Item_Page to send data back to MainActivity
+            Intent intent = new Intent(MainActivity.this, Add_Item_Page.class);
+            startActivityForResult(intent, ADD_ITEM_REQUEST_CODE);
+
         }else if(Selected_Menu_Item==R.id.menu_delete){
             startActivity(new Intent(MainActivity.this, Delete_Item_Page.class));
         }else if(Selected_Menu_Item==R.id.menu_about){
@@ -98,9 +105,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
 
 
     // process image in with Firebase API methods
@@ -126,9 +130,6 @@ public class MainActivity extends AppCompatActivity {
                                 });
     }
 
-    // a constant set to 1 used in image capture methods
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-
     // opens camera
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -137,9 +138,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // sets the captured image in the ImageView on screen
+    // sets the captured image in the ImageView on screen after REQUEST_IMAGE_CAPTURE
+    // retrieve text from Add_Item_Page
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // check for REQUEST_IMAGE_CAPTURE
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             imageBitmap = (Bitmap) extras.get("data");
@@ -148,6 +153,18 @@ public class MainActivity extends AppCompatActivity {
             // directly call detectImage()
             // eliminates need for detect button
             detectImage();
+        }
+
+        // alternatively, check for ADD_ITEM_REQUEST_CODE
+        if (requestCode == ADD_ITEM_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+
+                String manualName = data.getStringExtra("name");
+                String manualPrice = data.getStringExtra("price");
+                String manualQuantity = data.getStringExtra("quantity");
+
+                manualInputToArrayList(manualName, manualPrice, manualQuantity);
+            }
         }
     }
 
@@ -194,9 +211,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // print total with tax to screen to 2 decimal places
-        String stringTotal = "$" + String.format("%.2f", calculateTotalWithSalesTax());
-        PriceTotal.setTextSize(24);
-        PriceTotal.setText(stringTotal);
+        updateTotalOnScreen();
 
     }
 
@@ -223,5 +238,27 @@ public class MainActivity extends AppCompatActivity {
         String str;
         str = Double.toString(dub);
         return str;
+    }
+
+    // manual entry to ArrayList through name, price, and quantity values
+    private void manualInputToArrayList(String name, String price, String quantity) {
+
+        double priceDouble = textProcessing.convertToDouble(price);
+        int quantityInt = Integer.parseInt(quantity);
+
+        // add item to the ArrayList quantityInt number of times
+        for (int i = 0; i < quantityInt; i++)
+        {
+            items.add(new Pair <String,Double> (name, priceDouble));
+        }
+
+        recognizedTextView.setText("");
+        updateTotalOnScreen();
+    }
+
+    private void updateTotalOnScreen() {
+        String stringTotal = "$" + String.format("%.2f", calculateTotalWithSalesTax());
+        PriceTotal.setTextSize(24);
+        PriceTotal.setText(stringTotal);
     }
 }
