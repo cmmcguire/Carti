@@ -1,8 +1,12 @@
 package com.project.carti;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Pair;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -198,22 +202,11 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-
         double detectedPriceDouble = textProcessing.convertToDouble(detectedPriceString);
-                   //list of tuples(2 values)
 
-        Double detectedPriceDoubObj = new Double(detectedPriceDouble);
-
-                                                                                                        //detectedPriceDouble is casted as a double Object
-        items.add(new Pair <String,Double> (new String("default"), detectedPriceDoubObj));      //Pair values cant be primitive. must cast to objects
-                                            /*                  ^^^^^^^^                */
-                                            /******change default to initialize with itemNameStr*****/
-
-
-
-        // print total with tax to screen to 2 decimal places
-        updateTotalOnScreen();
-
+        // get name of item from user in nameText
+        // on OK, send input and price to items ArrayList
+        openNameInputDialog(detectedPriceDouble);
     }
 
     // calculates total without sales tax
@@ -286,6 +279,44 @@ public class MainActivity extends AppCompatActivity {
         PriceTotal.setTextSize(24);
         PriceTotal.setText(stringTotal);
     }
+
+    // open input dialog to accept name input
+    // on OK, call method to add to items ArrayList
+    private void openNameInputDialog(final double detectedPrice) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Enter an item name:");
+
+        // set up the input
+        final EditText input = new EditText(this);
+
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        // set up the OK button
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                String nameText = input.getText().toString();
+                detectedItemToArrayList(nameText, detectedPrice);
+            }
+        });
+
+        builder.show();
+    }
+
+    // add name and item to items ArrayList
+    private void detectedItemToArrayList(String nameText, double detectedPrice) {
+
+        Double detectedPriceDoubObj = new Double(detectedPrice);
+
+        items.add(new Pair <> (nameText, detectedPriceDoubObj));
+
+        // print total with tax to screen to 2 decimal places
+        updateTotalOnScreen();
+    }
+
 
     protected ArrayList<Double> unpackList_Price_Version()
     {
