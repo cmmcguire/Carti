@@ -22,6 +22,7 @@ import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import androidx.annotation.NonNull;
 
@@ -240,6 +241,29 @@ public class MainActivity extends AppCompatActivity {
         return str;
     }
 
+    private void delete_item(String name)
+    {
+
+        Iterator<Pair<String,Double>> itr = items.iterator();
+        Pair<String, Double> item;
+
+        while(itr.hasNext())
+        {
+            item = itr.next();
+
+            if(item.first.equals(name))
+            {
+                itr.remove();
+                break;                  //only deletes one instance of item name
+                                        //could remove break line to delete up through whole list
+            }
+
+        }
+        recognizedTextView.setText("");     /******   not sure about this line?????   *******/
+        updateTotalOnScreen();
+
+    }
+
 
     // manual entry to ArrayList through name, price, and quantity values
     private void manualInputToArrayList(String name, String price, String quantity) {
@@ -262,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
         PriceTotal.setTextSize(24);
         PriceTotal.setText(stringTotal);
     }
-      
+
     protected ArrayList<Double> unpackList_Price_Version()
     {
         ArrayList<Double> PriceList = new ArrayList<Double>();
