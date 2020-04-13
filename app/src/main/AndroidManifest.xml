@@ -13,12 +13,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Tax_Page"></activity>
-        <activity android:name=".About_Page" />
-        <activity android:name=".Delete_Item_Page" />
-        <activity android:name=".Add_Item_Page" />
-        <activity android:name=".Grocery_List_Page" />
-        <activity android:name=".SplashScreen">
+        <activity android:name=".Tax_Page"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".About_Page"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Delete_Item_Page"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Add_Item_Page"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Grocery_List_Page"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SplashScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +33,8 @@
             </intent-filter>
 <!--            added the splash screen before the main activity-->
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
