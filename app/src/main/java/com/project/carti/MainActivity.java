@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     // static constants for onActivityResult
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int ADD_ITEM_REQUEST_CODE = 2;
+    static final int ADD_TAX_REQUEST_CODE = 3;
 
     // instance of TextProcessing class to call methods in class
     private TextProcessing textProcessing = new TextProcessing();
@@ -105,7 +106,11 @@ public class MainActivity extends AppCompatActivity {
         }else if(Selected_Menu_Item==R.id.menu_about){
             startActivity(new Intent(MainActivity.this, About_Page.class));
         }else if(Selected_Menu_Item==R.id.menu_tax){
-            startActivity(new Intent(MainActivity.this, Tax_Page.class));
+
+            // allow Tax_Page to send data back to MainActivity
+            Intent intent = new Intent(MainActivity.this, Tax_Page.class);
+            startActivityForResult(intent, ADD_TAX_REQUEST_CODE);
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -145,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
     // sets the captured image in the ImageView on screen after REQUEST_IMAGE_CAPTURE
     // retrieve text from Add_Item_Page
+    // retrieve tax from Tax_Page
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -169,6 +175,16 @@ public class MainActivity extends AppCompatActivity {
                 String manualQuantity = data.getStringExtra("quantity");
 
                 manualInputToArrayList(manualName, manualPrice, manualQuantity);
+            }
+        }
+
+        // then check for ADD_TAX_REQUEST_CODE
+        if (requestCode == ADD_TAX_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+
+                double newTaxRate = data.getDoubleExtra("tax", 0.0);
+                System.out.println(newTaxRate + "***3");
+                updateSalesTax(newTaxRate);
             }
         }
     }
@@ -223,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
     // add sales tax to total and return result
     private double calculateTotalWithSalesTax() {
         double total = calculate_total();
-        return total * (1 + salesTax);
+        return (total * (1 + salesTax));
     }
 
     // converts a double to a string
@@ -317,7 +333,6 @@ public class MainActivity extends AppCompatActivity {
         updateTotalOnScreen();
     }
 
-
     protected ArrayList<Double> unpackList_Price_Version()
     {
         ArrayList<Double> PriceList = new ArrayList<Double>();
@@ -338,5 +353,14 @@ public class MainActivity extends AppCompatActivity {
             NameList.add(name_price.first);
         }
         return NameList;
+    }
+
+    // update sales tax variable
+    private void updateSalesTax(double newTaxRate) {
+
+        salesTax = newTaxRate;
+
+        // update the on-screen total
+        updateTotalOnScreen();
     }
 }

@@ -57,5 +57,12 @@
         tools:layout_editor_absoluteX="30dp"
         tools:layout_editor_absoluteY="310dp" />
 
+    <Button
+        android:id="@+id/confirmButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="Confirm_Input"
+        android:text="@string/confirm"></Button>
+
 
 </RelativeLayout>
