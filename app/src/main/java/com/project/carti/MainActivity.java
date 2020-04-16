@@ -183,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
 
                 double newTaxRate = data.getDoubleExtra("tax", 0.0);
-                System.out.println(newTaxRate + "***3");
                 updateSalesTax(newTaxRate);
             }
         }

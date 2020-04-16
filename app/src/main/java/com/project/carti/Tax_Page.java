@@ -16,7 +16,7 @@ public class Tax_Page extends AppCompatActivity {
     private ProgressBar progressBar;
     private SeekBar seekBar;
 
-    int currentProgress = 0;
+    double currentProgress = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +31,10 @@ public class Tax_Page extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressBar.setProgress(progress);
-                textView.setText("" + progress + "%");
-                currentProgress = progress;
-                System.out.println(currentProgress + "***1");
+
+                double correctedProgress = (double)progress / 4;
+                textView.setText("" + correctedProgress + "%");
+                currentProgress = correctedProgress;
             }
 
             @Override
@@ -54,10 +55,10 @@ public class Tax_Page extends AppCompatActivity {
         passTaxInput();
     }
 
-    // converts progress int to correct tax
-    // Ex. 7 converts to .07
-    private double convertToTax(int progress) {
-        return ((double)progress / 100);
+    // converts progress double to correct tax
+    // Ex. 7.00 converts to .07
+    private double convertToTax(double progress) {
+        return (progress / 100);
     }
 
     // passes tax input back to MainActivity
@@ -65,44 +66,10 @@ public class Tax_Page extends AppCompatActivity {
 
         double taxRate = convertToTax(currentProgress);
 
-        System.out.println(taxRate + "***2");
-
         Intent intent = new Intent();
         intent.putExtra("tax", taxRate);
         setResult(RESULT_OK, intent);
         finish();
     }
-
-
-// is the below needed at all?
-
-//    public void TaxBar(){
-//
-//        tax_bar = findViewById(R.id.seekBar2);
-//        tax = findViewById(R.id.textView3);
-//        tax_bar.setOnSeekBarChangeListener(
-//                new SeekBar.OnSeekBarChangeListener() {
-//                    @Override
-//                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                        MainActivity.salesTax = ((float)progress/10.0);
-//                        tax.setText("Tax Amount: " + MainActivity.salesTax + "%");
-//
-//
-//                    }
-//
-//                    @Override
-//                    public void onStartTrackingTouch(SeekBar seekBar) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onStopTrackingTouch(SeekBar seekBar) {
-//
-//                    }
-//                }
-//        );
-//    }
-
-
 
 }
