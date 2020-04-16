@@ -32,7 +32,10 @@ public class Tax_Page extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progressBar.setProgress(progress);
 
+                // divides progress (max of 80) by 4 to allow input to 20%
+                // allows tax to the nearest .25 of a dollar
                 double correctedProgress = (double)progress / 4;
+
                 textView.setText("" + correctedProgress + "%");
                 currentProgress = correctedProgress;
             }

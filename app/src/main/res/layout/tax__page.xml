@@ -62,8 +62,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
-        android:max="80"
         android:layout_marginBottom="264dp"
+        android:max="80"
         android:scrollbarSize="30dp"
         tools:layout_editor_absoluteX="30dp"
         tools:layout_editor_absoluteY="310dp" />
