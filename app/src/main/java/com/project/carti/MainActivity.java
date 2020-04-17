@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int ADD_ITEM_REQUEST_CODE = 2;
     static final int ADD_TAX_REQUEST_CODE = 3;
+    static final int DELETE_ITEM_REQUEST_CODE = 4;
 
     // instance of TextProcessing class to call methods in class
     private TextProcessing textProcessing = new TextProcessing();
@@ -89,12 +90,15 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    // the below is used to open selected Activity from the menu bar
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int Selected_Menu_Item=item.getItemId();
 
         if(Selected_Menu_Item==R.id.menu_grocery_list){
+
             startActivity(new Intent(MainActivity.this, Grocery_List_Page.class));
+
         } else if (Selected_Menu_Item==R.id.menu_add){
 
             // allows Add_Item_Page to send data back to MainActivity
@@ -102,9 +106,15 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, ADD_ITEM_REQUEST_CODE);
 
         }else if(Selected_Menu_Item==R.id.menu_delete){
-            startActivity(new Intent(MainActivity.this, Delete_Item_Page.class));
+
+            // allow Delete_Item_Page to send data back to MainActivity
+            Intent intent = new Intent(MainActivity.this, Tax_Page.class);
+            startActivityForResult(intent, DELETE_ITEM_REQUEST_CODE);
+
         }else if(Selected_Menu_Item==R.id.menu_about){
+
             startActivity(new Intent(MainActivity.this, About_Page.class));
+
         }else if(Selected_Menu_Item==R.id.menu_tax){
 
             // allow Tax_Page to send data back to MainActivity
@@ -151,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
     // sets the captured image in the ImageView on screen after REQUEST_IMAGE_CAPTURE
     // retrieve text from Add_Item_Page
     // retrieve tax from Tax_Page
+    // retrieve item to be deleted from Delete_Item_Page
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -184,6 +195,17 @@ public class MainActivity extends AppCompatActivity {
 
                 double newTaxRate = data.getDoubleExtra("tax", 0.0);
                 updateSalesTax(newTaxRate);
+            }
+        }
+
+        // then check for DELETE_ITEM_REQUEST_CODE
+        if (requestCode == DELETE_ITEM_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+
+                String itemName = data.getStringExtra("name");
+
+                // calls method for item deletion
+                delete_item(itemName);
             }
         }
     }
@@ -267,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-        recognizedTextView.setText("");     /******   not sure about this line?????   *******/
+        recognizedTextView.setText("");
         updateTotalOnScreen();
 
     }
