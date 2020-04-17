@@ -36,7 +36,7 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    // static constants for onActivityResult
+    // static constants for onActivityResult / Intents
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int ADD_ITEM_REQUEST_CODE = 2;
     static final int ADD_TAX_REQUEST_CODE = 3;
@@ -51,10 +51,11 @@ public class MainActivity extends AppCompatActivity {
     Bitmap imageBitmap;
     TextView recognizedTextView, StringTotal, PriceTotal;
 
-
     // declaration of global variables
     double salesTax = 0;
-    ArrayList<Pair<String,Double>> items = new ArrayList<Pair<String, Double>>();  // holds itemNameString with price, list of tuples
+
+    // holds itemNameString with price, list of tuples
+    ArrayList<Pair<String,Double>> items = new ArrayList<Pair<String, Double>>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +69,6 @@ public class MainActivity extends AppCompatActivity {
         recognizedTextView = findViewById(R.id.recognizedTextView);
         PriceTotal = findViewById(R.id.PriceTotal);
 
-
-        //shopTotal = findViewById(R.id.shopTotal);
-
         // listens for Camera button to be clicked
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         // end of onCreate
     }
 
-
+    // create menu bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater Menu_Object = getMenuInflater();
@@ -125,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
     // process image in with Firebase API methods
     private void detectImage() {
@@ -271,6 +268,7 @@ public class MainActivity extends AppCompatActivity {
         return str;
     }
 
+    // used to delete an item by item name
     private void delete_item(String name)
     {
 
@@ -294,7 +292,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     // manual entry to ArrayList through name, price, and quantity values
     private void manualInputToArrayList(String name, String price, String quantity) {
 
@@ -311,6 +308,7 @@ public class MainActivity extends AppCompatActivity {
         updateTotalOnScreen();
     }
 
+    // total (with tax) updated on-screen after potential changes
     private void updateTotalOnScreen() {
         String stringTotal = "$" + String.format("%.2f", calculateTotalWithSalesTax());
         PriceTotal.setTextSize(24);
@@ -354,6 +352,7 @@ public class MainActivity extends AppCompatActivity {
         updateTotalOnScreen();
     }
 
+    // unpacks ArrayList of pairs and returns ArrayList of prices ONLY
     protected ArrayList<Double> unpackList_Price_Version()
     {
         ArrayList<Double> PriceList = new ArrayList<Double>();
@@ -365,6 +364,7 @@ public class MainActivity extends AppCompatActivity {
         return PriceList;
     }
 
+    // unpacks ArrayList of pairs and returns ArrayList of item names ONLY
     protected ArrayList<String> unpackList_Name_Version()
     {
         ArrayList<String> NameList = new ArrayList<String>();
