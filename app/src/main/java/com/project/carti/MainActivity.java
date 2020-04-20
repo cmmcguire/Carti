@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     static final int ADD_ITEM_REQUEST_CODE = 2;
     static final int ADD_TAX_REQUEST_CODE = 3;
     static final int DELETE_ITEM_REQUEST_CODE = 4;
+    static final int GROCERY_LIST_REQUEST_CODE = 5;
 
     // instance of TextProcessing class to call methods in class
     private TextProcessing textProcessing = new TextProcessing();
@@ -95,7 +96,11 @@ public class MainActivity extends AppCompatActivity {
 
         if(Selected_Menu_Item==R.id.menu_grocery_list){
 
-            startActivity(new Intent(MainActivity.this, Grocery_List_Page.class));
+            // add intent
+            Intent intent = new Intent(MainActivity.this, Grocery_List_Page.class);
+            intent.putExtra("names", unpackList_Name_Version());
+            intent.putExtra("prices", unpackList_Price_Version());
+            startActivityForResult(intent, GROCERY_LIST_REQUEST_CODE);
 
         } else if (Selected_Menu_Item==R.id.menu_add){
 
@@ -106,7 +111,9 @@ public class MainActivity extends AppCompatActivity {
         }else if(Selected_Menu_Item==R.id.menu_delete){
 
             // allow Delete_Item_Page to send data back to MainActivity
-            Intent intent = new Intent(MainActivity.this, Tax_Page.class);
+            Intent intent = new Intent(MainActivity.this, Delete_Item_Page.class);
+            intent.putExtra("names", unpackList_Name_Version());
+            intent.putExtra("prices", unpackList_Price_Version());
             startActivityForResult(intent, DELETE_ITEM_REQUEST_CODE);
 
         }else if(Selected_Menu_Item==R.id.menu_about){
