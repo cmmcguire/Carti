@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int ADD_ITEM_REQUEST_CODE = 2;
     static final int ADD_TAX_REQUEST_CODE = 3;
+    static final int DELETE_ITEM_REQUEST_CODE = 4;
 
     // instance of TextProcessing class to call methods in class
     private TextProcessing textProcessing = new TextProcessing();
@@ -102,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, ADD_ITEM_REQUEST_CODE);
 
         }else if(Selected_Menu_Item==R.id.menu_delete){
+            Intent intent = new Intent(MainActivity.this, Delete_Item_Page.class);
             startActivity(new Intent(MainActivity.this, Delete_Item_Page.class));
         }else if(Selected_Menu_Item==R.id.menu_about){
             startActivity(new Intent(MainActivity.this, About_Page.class));
@@ -185,6 +187,13 @@ public class MainActivity extends AppCompatActivity {
                 double newTaxRate = data.getDoubleExtra("tax", 0.0);
                 System.out.println(newTaxRate + "***3");
                 updateSalesTax(newTaxRate);
+            }
+        }
+        //check for DELETE_ITEM_REQUEST_CODE
+        if(requestCode == DELETE_ITEM_REQUEST_CODE){
+            if(requestCode == RESULT_OK){
+                String delete_items = data.getStringExtra("Delete");
+                delete_item(delete_items);
             }
         }
     }
@@ -364,3 +373,4 @@ public class MainActivity extends AppCompatActivity {
         updateTotalOnScreen();
     }
 }
+

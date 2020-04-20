@@ -11,15 +11,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/ListViewItems"
-        android:layout_below="@+id/textView"
         android:choiceMode="multipleChoice"/>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:gravity="center_horizontal"
-        android:textColor="#000000"
-        android:textSize="30sp"
-        android:layout_height="wrap_content"
-        android:text="Delete Items" />
 </RelativeLayout>
