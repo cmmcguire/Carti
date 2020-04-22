@@ -21,9 +21,10 @@ public class Delete_Item_Page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.delete__item__page);
         ListView ItemList;
+
         Intent intent = getIntent();
         ArrayList<String> names = intent.getStringArrayListExtra("names");
-        ArrayList<Double> prices = (ArrayList<Double>) intent.getSerializableExtra("prices");
+
         ItemList = findViewById(R.id.ListViewItems);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, names);
 

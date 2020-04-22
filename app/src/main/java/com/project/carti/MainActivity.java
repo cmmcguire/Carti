@@ -109,8 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
         }else if(Selected_Menu_Item==R.id.menu_delete){
             Intent intent = new Intent(MainActivity.this, Delete_Item_Page.class);
-            intent.putExtra("names", unpackList_Name_Version());
-            intent.putExtra("prices", unpackList_Price_Version());
+            intent.putStringArrayListExtra("names", unpackList_Name_Version());
             startActivityForResult(intent, DELETE_ITEM_REQUEST_CODE);
 
         }else if(Selected_Menu_Item==R.id.menu_about){
@@ -198,9 +197,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         //check for DELETE_ITEM_REQUEST_CODE
-        if(requestCode == DELETE_ITEM_REQUEST_CODE){
-            if(requestCode == RESULT_OK){
+        if (requestCode == DELETE_ITEM_REQUEST_CODE) {
+            if(resultCode == RESULT_OK){
+
                 String itemName = data.getStringExtra("name");
+                System.out.println(itemName + "**3");
 
                 // calls method for item deletion
                 delete_item(itemName);
