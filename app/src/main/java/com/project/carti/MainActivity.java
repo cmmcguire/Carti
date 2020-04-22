@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         int Selected_Menu_Item=item.getItemId();
 
         if(Selected_Menu_Item==R.id.menu_grocery_list){
-
+          
             // add intent
             Intent intent = new Intent(MainActivity.this, Grocery_List_Page.class);
             intent.putExtra("names", unpackList_Name_Version());
@@ -111,9 +111,9 @@ public class MainActivity extends AppCompatActivity {
         }else if(Selected_Menu_Item==R.id.menu_delete){
 
             // allow Delete_Item_Page to send data back to MainActivity
+            // also passes String ArrayList to Delete_Item_Page
             Intent intent = new Intent(MainActivity.this, Delete_Item_Page.class);
-            intent.putExtra("names", unpackList_Name_Version());
-            intent.putExtra("prices", unpackList_Price_Version());
+            intent.putStringArrayListExtra("names", unpackList_Name_Version());
             startActivityForResult(intent, DELETE_ITEM_REQUEST_CODE);
 
         }else if(Selected_Menu_Item==R.id.menu_about){
@@ -392,3 +392,4 @@ public class MainActivity extends AppCompatActivity {
         updateTotalOnScreen();
     }
 }
+
