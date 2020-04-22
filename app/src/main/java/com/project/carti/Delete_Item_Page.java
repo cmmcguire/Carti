@@ -20,6 +20,7 @@ public class Delete_Item_Page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.delete__item__page);
+      
         ListView ItemList;
 
         Intent intent = getIntent();
@@ -51,59 +52,3 @@ public class Delete_Item_Page extends AppCompatActivity {
         finish();
     }
 }
-/*
-   ItemList.setSelection(new ) {
-@Override
-public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-
-        if(tempNames.contains(names.get(position))){
-        tempNames.remove(names.get(position));
-        count = tempNames.size();
-        mode.setTitle(count + " items selected");
-        }else{
-        count = count+1;
-        mode.setTitle(count + " items selected");
-        tempNames.add(names.get(position));
-        name = names.get(position);
-        }
-        }
-
-@Override
-public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-        count=0;
-        MenuInflater inflater = mode.getMenuInflater();
-        inflater.inflate(R.menu.delete_menu_option, menu);
-
-        return true;
-        }
-
-@Override
-public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-        return false;
-        }
-
-@Override
-public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-        switch(item.getItemId()) {
-        case R.id.delete_id:
-        for (String msg : tempNames) {
-        adapter.remove(msg);
-        }
-        Toast.makeText(getBaseContext(), count + " items removed", Toast.LENGTH_SHORT).show();
-        count = 0;
-        mode.finish();
-        return true;
-        case R.id.confirm_delete:
-        confirm_input();
-default:
-        return false;
-        }
-        }
-
-@Override
-public void onDestroyActionMode(ActionMode mode) {
-
-        }
-        });
-        }
-        */

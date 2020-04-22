@@ -36,7 +36,7 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    // static constants for onActivityResult
+    // static constants for onActivityResult / Intents
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int ADD_ITEM_REQUEST_CODE = 2;
     static final int ADD_TAX_REQUEST_CODE = 3;
@@ -52,10 +52,11 @@ public class MainActivity extends AppCompatActivity {
     Bitmap imageBitmap;
     TextView recognizedTextView, StringTotal, PriceTotal;
 
-
     // declaration of global variables
     double salesTax = 0;
-    ArrayList<Pair<String,Double>> items = new ArrayList<Pair<String, Double>>();  // holds itemNameString with price, list of tuples
+
+    // holds itemNameString with price, list of tuples
+    ArrayList<Pair<String,Double>> items = new ArrayList<Pair<String, Double>>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +70,6 @@ public class MainActivity extends AppCompatActivity {
         recognizedTextView = findViewById(R.id.recognizedTextView);
         PriceTotal = findViewById(R.id.PriceTotal);
 
-
-        //shopTotal = findViewById(R.id.shopTotal);
-
         // listens for Camera button to be clicked
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         // end of onCreate
     }
 
-
+    // create menu bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater Menu_Object = getMenuInflater();
@@ -91,16 +89,19 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    // the below is used to open selected Activity from the menu bar
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int Selected_Menu_Item=item.getItemId();
 
         if(Selected_Menu_Item==R.id.menu_grocery_list){
+          
             // add intent
             Intent intent = new Intent(MainActivity.this, Grocery_List_Page.class);
             intent.putExtra("names", unpackList_Name_Version());
             intent.putExtra("prices", unpackList_Price_Version());
             startActivityForResult(intent, GROCERY_LIST_REQUEST_CODE);
+
         } else if (Selected_Menu_Item==R.id.menu_add){
 
             // allows Add_Item_Page to send data back to MainActivity
@@ -108,12 +109,17 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, ADD_ITEM_REQUEST_CODE);
 
         }else if(Selected_Menu_Item==R.id.menu_delete){
+
+            // allow Delete_Item_Page to send data back to MainActivity
+            // also passes String ArrayList to Delete_Item_Page
             Intent intent = new Intent(MainActivity.this, Delete_Item_Page.class);
             intent.putStringArrayListExtra("names", unpackList_Name_Version());
             startActivityForResult(intent, DELETE_ITEM_REQUEST_CODE);
 
         }else if(Selected_Menu_Item==R.id.menu_about){
+
             startActivity(new Intent(MainActivity.this, About_Page.class));
+
         }else if(Selected_Menu_Item==R.id.menu_tax){
 
             // allow Tax_Page to send data back to MainActivity
@@ -124,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
     // process image in with Firebase API methods
     private void detectImage() {
@@ -160,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
     // sets the captured image in the ImageView on screen after REQUEST_IMAGE_CAPTURE
     // retrieve text from Add_Item_Page
     // retrieve tax from Tax_Page
+    // retrieve item to be deleted from Delete_Item_Page
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -192,16 +198,15 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
 
                 double newTaxRate = data.getDoubleExtra("tax", 0.0);
-                System.out.println(newTaxRate + "***3");
                 updateSalesTax(newTaxRate);
             }
         }
-        //check for DELETE_ITEM_REQUEST_CODE
+
+        // then check for DELETE_ITEM_REQUEST_CODE
         if (requestCode == DELETE_ITEM_REQUEST_CODE) {
-            if(resultCode == RESULT_OK){
+            if (resultCode == RESULT_OK) {
 
                 String itemName = data.getStringExtra("name");
-                System.out.println(itemName + "**3");
 
                 // calls method for item deletion
                 delete_item(itemName);
@@ -270,6 +275,7 @@ public class MainActivity extends AppCompatActivity {
         return str;
     }
 
+    // used to delete an item by item name
     private void delete_item(String name)
     {
 
@@ -288,11 +294,10 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-        recognizedTextView.setText("");     /******   not sure about this line?????   *******/
+        recognizedTextView.setText("");
         updateTotalOnScreen();
 
     }
-
 
     // manual entry to ArrayList through name, price, and quantity values
     private void manualInputToArrayList(String name, String price, String quantity) {
@@ -310,6 +315,7 @@ public class MainActivity extends AppCompatActivity {
         updateTotalOnScreen();
     }
 
+    // total (with tax) updated on-screen after potential changes
     private void updateTotalOnScreen() {
         String stringTotal = "$" + String.format("%.2f", calculateTotalWithSalesTax());
         PriceTotal.setTextSize(24);
@@ -353,6 +359,7 @@ public class MainActivity extends AppCompatActivity {
         updateTotalOnScreen();
     }
 
+    // unpacks ArrayList of pairs and returns ArrayList of prices ONLY
     protected ArrayList<Double> unpackList_Price_Version()
     {
         ArrayList<Double> PriceList = new ArrayList<Double>();
@@ -364,6 +371,7 @@ public class MainActivity extends AppCompatActivity {
         return PriceList;
     }
 
+    // unpacks ArrayList of pairs and returns ArrayList of item names ONLY
     protected ArrayList<String> unpackList_Name_Version()
     {
         ArrayList<String> NameList = new ArrayList<String>();
