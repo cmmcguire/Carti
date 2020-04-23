@@ -127,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, ADD_TAX_REQUEST_CODE);
 
         }
-
         return super.onOptionsItemSelected(item);
     }
 
