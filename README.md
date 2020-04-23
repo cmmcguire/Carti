@@ -1,5 +1,7 @@
 # Carti (A Smart Grocery Cart Application)
 
+![Cart-app-icon](app/src/main/res/mipmap-hdpi/ic_launcher.png)
+
 ## Contributors:  
 Chad McGuire<br>
 Emily Madril<br> 
