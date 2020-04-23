@@ -7,22 +7,24 @@ import android.widget.TextView;
 
 public class About_Page extends AppCompatActivity {
 
-    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about__page);
 
-        String info_page = "Welcome to Carti! Keep track of your grocery bill as you go. " +
-                "Use the camera to scan price tags. " +
-                "Adjust your sales tax using the tax slider. " +
-                "If there is no price tag, manually add the price of an item to keep an accurate bill." +
-                " Use the delete button when you put an item back or spend too much. " +
-                "View your entire grocery list to keep track of what you’ve already bought. " +
+        TextView textView;
+
+        String info = "Welcome to Carti! Keep track of your grocery bill as you go.\n" +
+                "Use these features to make your experience the best it can be:\n" +
+                "\t- Click the grocery bag icon to see your complete list of items.\n" +
+                "\t- Click the add item icon to manually add an icon if there is no price tage.\n" +
+                "\t- Click the delete item icon to delete items if you need to put something back.\n" +
+                "\t- Click the Tax button to adjust your sales tax amount.\n" +
                 "Happy shopping!";
 
-        textView = (TextView)findViewById(R.id.textView);
-        textView.setText(info_page);
+        textView = findViewById(R.id.textView);
+        textView.setTextSize(20);
+        textView.setText(info);
     }
 }
